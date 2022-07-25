@@ -1,4 +1,7 @@
+import org.example.StringCalculator;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,8 +22,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class StringCalculatorShould {
+
+    private StringCalculator stringCalculator;
+    @Before
+    public void setUp(){
+        stringCalculator = new StringCalculator();
+    }
+
     @Test
-    public void foo(){
-        assertThat(true).isEqualTo(false);
+    public void parse_an_expression_without_numbers_as_zero (){
+        assertThat(stringCalculator.add("")).isEqualTo(0);
     }
 }
