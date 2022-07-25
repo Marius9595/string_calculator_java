@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 “1,\n” -> ERROR
 “//;\n1;2” -> 3 OK
 “negatives not allowed”
-"1001,2" -> 2
+"1001,2" -> 2 OK
 “//[***]\n2***2***3” -> 7
 “//[*][%]\n1*2%3” -> 6
 “//[;;;;][%%]\n3;;;2%%3” -> 8
@@ -51,5 +51,9 @@ public class StringCalculatorShould {
     @Test
     public void not_add_number_bigger_than_1000 (){
         assertThat(stringCalculator.add("1001,2")).isEqualTo(2);
+    }
+    @Test
+    public void handle_custom_delimiter_with_a_repeated_character (){
+        assertThat(stringCalculator.add("//[***]\n2***2***3")).isEqualTo(2);
     }
 }
