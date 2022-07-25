@@ -9,9 +9,9 @@ public class StringCalculator {
         boolean IsThereJustANumber = numbersInExpression.length() == 1;
         if(IsThereJustANumber)  return Integer.parseInt(numbersInExpression);
 
-        numbersInExpression = numbersInExpression.replaceAll("\n",",");
-
-        return Arrays.stream(numbersInExpression.split(","))
+        String delimiter = ",";
+        numbersInExpression = numbersInExpression.replaceAll("\n",delimiter);
+        return Arrays.stream(numbersInExpression.split(delimiter))
                 .map(Integer::parseInt)
                 .reduce(0, Integer::sum);
     }
