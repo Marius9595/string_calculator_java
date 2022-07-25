@@ -14,8 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 “//;\n1;2” -> 3 OK
 “negatives not allowed”
 "1001,2" -> 2 OK
-“//[***]\n2***2***3” -> 7
-“//[*][%]\n1*2%3” -> 6
+“//[;;;]/n2;;;2;;;3” -> 7 OK
+“//[;][%]\n1;2%3” -> 6
 “//[;;;;][%%]\n3;;;2%%3” -> 8
 */
 
@@ -54,6 +54,10 @@ public class StringCalculatorShould {
     }
     @Test
     public void handle_custom_delimiter_with_a_repeated_character (){
-        assertThat(stringCalculator.add("//[***]\n2***2***3")).isEqualTo(2);
+        assertThat(stringCalculator.add("//[;;;]\n2;;;2;;;3")).isEqualTo(7);
+    }
+    @Test
+    public void handle_multiple_custom_delimiters(){
+        assertThat(stringCalculator.add("//[;][%]\\n1;2%3")).isEqualTo(6);
     }
 }
