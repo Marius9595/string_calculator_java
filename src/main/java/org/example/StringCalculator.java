@@ -9,9 +9,11 @@ public class StringCalculator {
         boolean IsThereJustANumber = numbersInExpression.length() == 1;
         if(IsThereJustANumber)  return Integer.parseInt(numbersInExpression);
 
+        numbersInExpression = numbersInExpression.replaceAll("\n",",");
+
         return Arrays.stream(numbersInExpression.split(","))
-                .map(Integer::parseInt).
-                reduce(0, Integer::sum);
+                .map(Integer::parseInt)
+                .reduce(0, Integer::sum);
     }
 
 }
