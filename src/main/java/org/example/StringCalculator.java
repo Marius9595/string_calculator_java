@@ -3,15 +3,24 @@ package org.example;
 import java.util.Arrays;
 
 public class StringCalculator {
-    public int add(String numbersInExpression){
-        if(numbersInExpression.isEmpty()) return 0;
+    public int add(String expression){
+        if(expression.isEmpty()) return 0;
 
-        boolean IsThereJustANumber = numbersInExpression.length() == 1;
-        if(IsThereJustANumber)  return Integer.parseInt(numbersInExpression);
+        boolean IsThereJustANumber = expression.length() == 1;
+        if(IsThereJustANumber)  return Integer.parseInt(expression);
 
         String delimiter = ",";
-        numbersInExpression = numbersInExpression.replaceAll("\n",delimiter);
-        return Arrays.stream(numbersInExpression.split(delimiter))
+
+        if(expression.contains("//")){
+            String[] expression_with_command = expression.split("\n",0);
+            String command = expression_with_command[0];
+            String custom_delimiter = command.replaceFirst("//","");
+            expression = expression_with_command[1];
+            expression =expression.replaceAll(custom_delimiter,delimiter);
+        }
+
+        expression = expression.replaceAll("\n",delimiter);
+        return Arrays.stream(expression.split(delimiter))
                 .map(Integer::parseInt)
                 .reduce(0, Integer::sum);
     }
