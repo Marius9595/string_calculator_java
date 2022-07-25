@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /*
-"" -> 0
+"" -> 0 OK
 "1" -> 1
 "1,2" -> 3
 "1,2,3,4" -> 10
@@ -32,5 +32,9 @@ public class StringCalculatorShould {
     @Test
     public void parse_an_expression_without_numbers_as_zero (){
         assertThat(stringCalculator.add("")).isEqualTo(0);
+    }
+    @Test
+    public void not_add_an_expression_with_just_a_number (){
+        assertThat(stringCalculator.add("1")).isEqualTo(1);
     }
 }
