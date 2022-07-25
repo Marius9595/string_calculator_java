@@ -2,7 +2,8 @@ package org.example;
 
 public class StringCalculator {
     public int add(String numbersInExpression){
-        return 0;
+        if(numbersInExpression.isEmpty()) return 0;
+        return 1;
     }
 
 }
