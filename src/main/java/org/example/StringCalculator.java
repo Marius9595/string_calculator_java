@@ -22,6 +22,10 @@ public class StringCalculator {
         expression = expression.replaceAll("\n",delimiter);
         return Arrays.stream(expression.split(delimiter))
                 .map(Integer::parseInt)
+                .filter(number -> {
+                    int max_value_handable = 1000;
+                    return number < max_value_handable;
+                })
                 .reduce(0, Integer::sum);
     }
 
