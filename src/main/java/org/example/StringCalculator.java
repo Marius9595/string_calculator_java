@@ -5,7 +5,9 @@ import java.util.Arrays;
 public class StringCalculator {
     public int add(String numbersInExpression){
         if(numbersInExpression.isEmpty()) return 0;
-        if(numbersInExpression.length() == 1)  return Integer.parseInt(numbersInExpression);
+
+        boolean IsThereJustANumber = numbersInExpression.length() == 1;
+        if(IsThereJustANumber)  return Integer.parseInt(numbersInExpression);
 
         return Arrays.stream(numbersInExpression.split(","))
                 .map(Integer::parseInt).
