@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /*
 "" -> 0 OK
 "1" -> 1 OK
-"1,2,3,4" -> 10
+"1,2,3,4" -> 10 OK
 “1\n2,3” ->  6
 “1,\n” -> ERROR
 “//;\n1;2” -> 3
@@ -39,6 +39,10 @@ public class StringCalculatorShould {
     @Test
     public void add_numbers_separated_by_an_default_delimiter (){
         assertThat(stringCalculator.add("1,2,3,4")).isEqualTo(10);
+    }
+    @Test
+    public void handle_line_breaks_between_numbers_instead_delimiter (){
+        assertThat(stringCalculator.add("1\n2,3")).isEqualTo(6);
     }
 
 }
