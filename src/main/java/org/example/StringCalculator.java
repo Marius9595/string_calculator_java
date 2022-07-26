@@ -27,16 +27,16 @@ public class StringCalculator {
         if(expression.contains("//")){
             String[] expression_with_command = expression.split("\n",0);
             String command_with_delimiter = expression_with_command[0].replaceFirst("//","");
-            String custom_delimiter;
-            expression = expression_with_command[1];
 
+            expression = expression_with_command[1];
             if(command_with_delimiter.contains("[")){
-                command_with_delimiter = command_with_delimiter.replaceAll("]","");
-                custom_delimiter =  command_with_delimiter.replaceAll("\\[","");
+                for (String raw_delimiter: command_with_delimiter.split("]")) {
+                    String custom_delimiter = raw_delimiter.replaceAll("\\[","");
+                    expression = expression.replaceAll(custom_delimiter,",");
+                }
             }else{
-                custom_delimiter = command_with_delimiter;
+                expression = expression.replaceAll(command_with_delimiter, delimiter);
             }
-            expression = expression.replaceAll(custom_delimiter, delimiter);
         }
         return expression;
     }
