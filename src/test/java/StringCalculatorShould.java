@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 "1001,2" -> 2 OK
 “//[;;;]/n2;;;2;;;3” -> 7 OK
 “//[;][%]\n1;2%3” -> 6 OK
-“//[;;;;][%%]\n3;;;2%%3” -> 8 OK
+“//[;;;;][;%]\n3;;;2;%3” -> 8 OK
 */
 
 
@@ -59,5 +59,9 @@ public class StringCalculatorShould {
     @Test
     public void handle_multiple_custom_delimiters(){
         assertThat(stringCalculator.add("//[;][%]\n1;2%3")).isEqualTo(6);
+    }
+    @Test
+    public void handle_multiple_custom_complex_delimiters(){
+        assertThat(stringCalculator.add("//[;;;][;%]\n3;;;2;%3")).isEqualTo(8);
     }
 }
