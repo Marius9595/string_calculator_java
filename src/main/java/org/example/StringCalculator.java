@@ -10,9 +10,7 @@ public class StringCalculator {
         if(IsThereJustANumber)  return Integer.parseInt(expression);
 
         String default_delimiter = ",";
-
         expression = replaceCustomDelimiterwithDefault(expression, default_delimiter);
-
         expression = expression.replaceAll("\n",default_delimiter);
         return Arrays.stream(expression.split(default_delimiter))
                 .map(Integer::parseInt)
@@ -23,20 +21,25 @@ public class StringCalculator {
                 .reduce(0, Integer::sum);
     }
 
-    private String replaceCustomDelimiterwithDefault(String expression, String delimiter) {
-        if(expression.contains("//")){
+    private String replaceCustomDelimiterwithDefault(String expression, String default_delimiter) {
+        String command = "//";
+        if(expression.contains(command)){
             String[] expression_with_command = expression.split("\n",0);
-            String command_with_delimiter = expression_with_command[0].replaceFirst("//","");
-
+            String custom_delimiter_of_command = expression_with_command[0].replaceFirst(command,"");
             expression = expression_with_command[1];
-            if(command_with_delimiter.contains("[")){
-                for (String raw_delimiter: command_with_delimiter.split("]")) {
-                    String custom_delimiter = raw_delimiter.replaceAll("\\[","");
-                    expression = expression.replaceAll(custom_delimiter,",");
-                }
+            if(custom_delimiter_of_command.contains("[")){
+                expression = parsing_delimiters_to_default(expression, default_delimiter, custom_delimiter_of_command);
             }else{
-                expression = expression.replaceAll(command_with_delimiter, delimiter);
+                expression = expression.replaceAll(custom_delimiter_of_command, default_delimiter);
             }
+        }
+        return expression;
+    }
+
+    private String parsing_delimiters_to_default(String expression, String default_delimiter, String custom_delimiter_of_command) {
+        for (String raw_delimiter: custom_delimiter_of_command.split("]")) {
+            String custom_delimiter = raw_delimiter.replaceAll("\\[","");
+            expression = expression.replaceAll(custom_delimiter, default_delimiter);
         }
         return expression;
     }
